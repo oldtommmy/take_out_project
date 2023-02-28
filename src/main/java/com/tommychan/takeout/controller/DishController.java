@@ -1,6 +1,5 @@
 package com.tommychan.takeout.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tommychan.takeout.common.R;
@@ -160,5 +159,14 @@ public class DishController {
         //首次数据库查询后 存入redis
         redisTemplate.opsForValue().set(key, dishDtoList, 60, TimeUnit.MINUTES);
         return R.success(dishDtoList);
+    }
+
+    @PostMapping("/status/{status}")
+    public R<String> status(@PathVariable("status") Integer statusCode, @RequestParam("ids") List<Long> ids) {
+
+        log.info("code:{},ids:{}",statusCode, ids);
+        dishService.updateStatus(statusCode, ids);
+        return R.success("更新成功");
+
     }
 }
