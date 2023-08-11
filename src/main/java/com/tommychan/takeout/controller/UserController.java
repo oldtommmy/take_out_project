@@ -47,7 +47,7 @@ public class UserController {
             //将生成的验证码保存到Redis，有效期为5分钟
             redisTemplate.opsForValue().set(phone, validateCode, 5, TimeUnit.MINUTES);
             //发送消息
-            SMSUtils.sendMessage("阿里云短信测试", "SMS_154950909", phone, validateCode);
+            SMSUtils.sendMessage("阿里云短信测试", "********", phone, validateCode);
             return R.success("验证码发送成功！");
         }
         return R.error("验证码发送失败");
